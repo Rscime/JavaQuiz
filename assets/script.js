@@ -64,17 +64,32 @@ function game(){
 }
 
 function newQuestion() {
-    count++;
-    //select random question and populate in the correct HTML location
-    let questionNumber = Math.floor(Math.random() * remainingQuestions.length);
-    currentQuestion = remainingQuestions[questionNumber];
+    // Check counter to ensure dont run out of questions
+    if(count >= questions.length){
+        //end of game
+    }
+    
+    //select next question and populate in the correct HTML location
+    currentQuestion = remainingQuestions[count];
     question.innerText = currentQuestion.question;
+    count++;
 
-
-    choices.forEach(choice(number){
+// populate all the choices into the webpage
+    choices.forEach(function(choice){
         let dataNumber = choice.dataset['number'];
-        choice.innerText = currentQuestion['choice' + number];  
-    })
+        choice.innerText = currentQuestion['choice' + dataNumber];  
+    });
+
 }
+
+//listen to and log answer choice
+choices.forEach(function(choice){
+        choice.addEventListener("click", function(event){
+        let userChoice = event.target
+        let selectedAnswer = userChoice.dataset['number'];
+        console.log(selectedAnswer);
+        newQuestion();
+        });
+    });
 
 game();
