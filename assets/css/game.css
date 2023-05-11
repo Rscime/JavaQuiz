@@ -17,6 +17,7 @@
 .textChoice{
     padding: 5px 15px;
     width: 100%;
+    font-weight: normal;
 }
 
 .choice:hover {

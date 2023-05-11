@@ -6,71 +6,69 @@ let currentQuestion= {};
 let accept = true;
 let score = 0;
 let count = 0;
-let remainingQuestions = [];
 let correctScore = 1;
 let numberOfQuestions = 5;
-
+let feedback = 'correct';
 
 //create an array of question objects
 let questions = [
     {
-        question: "Question One",
-        choice1:"A",
-        choice2:"B",
-        choice3:"C",
-        choice4:"D",
-        answer: "choice1"
+        question: "Commonly used data types do NOT include:",
+        choice1:"Alerts",
+        choice2:"Booleans",
+        choice3:"Numbers",
+        choice4:"Strings",
+        answer: "1"
 },
 {
-    question: "Question Two",
-    choice1:"A",
-    choice2:"B",
-    choice3:"C",
-    choice4:"D",
-    answer: "choice4"
+    question: "The condition of an if/else statement is enclosed by:",
+    choice1:"Quotes",
+    choice2:"Curly Brackets",
+    choice3:"Brackes",
+    choice4:"Parentheses",
+    answer: "4"
 },
 {
-    question: "Question Three",
-    choice1:"A",
-    choice2:"B",
-    choice3:"C",
-    choice4:"D",
-    answer: "choice2"
+    question: "Which of the following commands prints output to the console?",
+    choice1:"print()",
+    choice2:"Console.log()",
+    choice3:"Console.print()",
+    choice4:"return()",
+    answer: "2"
 },
 {
-    question: "Question Four",
-    choice1:"A",
-    choice2:"B",
-    choice3:"C",
-    choice4:"D",
-    answer: "choice3"
+    question: "How would you declare css colors so you can easily refrence and change them throughout code",
+    choice1:"var(--colorName) =",
+    choice2:"let colorName = ",
+    choice3:"--colorName:",
+    choice4:"#colorHexNumber",
+    answer: "3"
 },
 {
-    question: "Question Five",
-    choice1:"A",
-    choice2:"B",
-    choice3:"C",
-    choice4:"D",
-    answer: "choice1"
+    question: "How do you comment out code in JavaScript?",
+    choice1:"//",
+    choice2:"/* */",
+    choice3:"<-- -->",
+    choice4:"**",
+    answer: "1"
 }
 ];
 
 function game(){
     count =0;
     score = 0;
-    //use spread operator to duplicate the questions array without fear of altering it throughout the function
-    remainingQuestions = [...questions];
     newQuestion();
 }
 
 function newQuestion() {
     // Check counter to ensure dont run out of questions
     if(count >= questions.length){
-        //end of game
+        //jump to end of game
+        return window.location.assign("./endgame.html");
     }
     
     //select next question and populate in the correct HTML location
-    currentQuestion = remainingQuestions[count];
+    currentQuestion = questions[count];
     question.innerText = currentQuestion.question;
     count++;
 
@@ -87,8 +85,24 @@ choices.forEach(function(choice){
         choice.addEventListener("click", function(event){
         let userChoice = event.target
         let selectedAnswer = userChoice.dataset['number'];
-        console.log(selectedAnswer);
-        newQuestion();
+
+        //if statement to change apperance based on correct incorect... and track score
+        if (selectedAnswer == currentQuestion.answer){
+            userChoice.setAttribute("style", "background-color: var(--pale); font-weight: bolder; color: #32a852");
+            score += 10;
+            console.log(score);
+        }
+        else{
+            userChoice.setAttribute("style", "background-color: var(--pale); font-weight: bolder; color: #c91916");
+            //remove time from timer!!!!
+            console.log(score);
+        }
+
+        //remove correct/incorrect symbology before moving on
+        setTimeout(function(){
+            userChoice.setAttribute("style", "background-color: var(--light); font-weight: normal; color: var(--dark)");
+            newQuestion();
+        }, 1000);
         });
     });
 
