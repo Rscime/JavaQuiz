@@ -6,8 +6,7 @@ let currentQuestion= {};
 let accept = true;
 let score = 0;
 let count = 0;
-let correctScore = 1;
-let numberOfQuestions = 5;
+let timerEl = document.querySelector('.timer');
 let feedback = 'correct';
 
 //create an array of question objects
@@ -19,45 +18,60 @@ let questions = [
         choice3:"Numbers",
         choice4:"Strings",
         answer: "1"
-},
-{
-    question: "The condition of an if/else statement is enclosed by:",
-    choice1:"Quotes",
-    choice2:"Curly Brackets",
-    choice3:"Brackes",
-    choice4:"Parentheses",
-    answer: "4"
-},
-{
-    question: "Which of the following commands prints output to the console?",
-    choice1:"print()",
-    choice2:"Console.log()",
-    choice3:"Console.print()",
-    choice4:"return()",
-    answer: "2"
-},
-{
-    question: "How would you declare css colors so you can easily refrence and change them throughout code",
-    choice1:"var(--colorName) =",
-    choice2:"let colorName = ",
-    choice3:"--colorName:",
-    choice4:"#colorHexNumber",
-    answer: "3"
-},
-{
-    question: "How do you comment out code in JavaScript?",
-    choice1:"//",
-    choice2:"/* */",
-    choice3:"<-- -->",
-    choice4:"**",
-    answer: "1"
-}
+    },
+    {
+        question: "The condition of an if/else statement is enclosed by:",
+        choice1:"Quotes",
+        choice2:"Curly Brackets",
+        choice3:"Brackes",
+        choice4:"Parentheses",
+        answer: "4"
+    },
+    {
+        question: "Which of the following commands prints output to the console?",
+        choice1:"print()",
+        choice2:"Console.log()",
+        choice3:"Console.print()",
+        choice4:"return()",
+        answer: "2"
+    },
+    {
+        question: "How would you declare css colors so you can easily refrence and change them throughout code",
+        choice1:"var(--colorName) =",
+        choice2:"let colorName = ",
+        choice3:"--colorName:",
+        choice4:"#colorHexNumber",
+        answer: "3"
+    },
+    {
+        question: "How do you comment out code in JavaScript?",
+        choice1:"//",
+        choice2:"/* */",
+        choice3:"<-- -->",
+        choice4:"**",
+        answer: "1"
+    }
 ];
 
+let totalTime = questions.length*10;
+
 function game(){
+    setTime();
     count =0;
     score = 0;
     newQuestion();
+}
+
+//create timer function
+function setTime() {
+    var timerInterval = setInterval(function() {
+        totalTime--;
+        timerEl.textContent = "Time Left: " + totalTime;
+        if(totalTime === 0) {
+            clearInterval(timerInterval);
+            return window.location.assign("./endgame.html");
+        }
+    }, 1000)
 }
 
 function newQuestion() {
