@@ -59,9 +59,11 @@ h3{
 
 
 /* Style buttons */
+
 .btn {
     padding: 10px;
     width: 150px;
+    height: 50px;
     margin: 10px;
     text-align: center;
     font-weight: bold;
@@ -71,6 +73,11 @@ h3{
     color: #3e0a4a;
 }
 
+#submitBtn{
+    background-color: var(--dark);
+    color: var(--medium);
+    font-weight: bolder;
+}
 /* change appearance when user hoovers over button */
 
 .btn:hover {

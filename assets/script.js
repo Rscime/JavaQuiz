@@ -58,7 +58,7 @@ let totalTime = questions.length*10;
 function game(){
     setTime();
     count =0;
-    score = 0;
+    score=0;
     newQuestion();
 }
 
@@ -77,7 +77,8 @@ function setTime() {
 function newQuestion() {
     // Check counter to ensure dont run out of questions
     if(count >= questions.length){
-        //jump to end of game
+        //save score and jump to end of game
+       
         return window.location.assign("./endgame.html");
     }
     
@@ -104,19 +105,20 @@ choices.forEach(function(choice){
         if (selectedAnswer == currentQuestion.answer){
             userChoice.setAttribute("style", "background-color: var(--pale); font-weight: bolder; color: #32a852");
             score += 10;
-            console.log(score);
         }
         else{
             userChoice.setAttribute("style", "background-color: var(--pale); font-weight: bolder; color: #c91916");
             //remove time from timer!!!!
-            console.log(score);
         }
-
+        localStorage.setItem('lastScore', score);
         //remove correct/incorrect symbology before moving on
         setTimeout(function(){
             userChoice.setAttribute("style", "background-color: var(--light); font-weight: normal; color: var(--dark)");
             newQuestion();
         }, 1000);
+
+
+
         });
     });
 
